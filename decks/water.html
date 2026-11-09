@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>炎神 | Crysments</title>
+
+<style>
+    .card-list {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 35px;
+
+    background: #151116;
+    border: 1px solid #c9a56a;
+    border-radius: 12px;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.card-list h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #c9a56a;
+}
+
+.card-list p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* スマホは2列 */
+@media (max-width: 600px) {
+    .card-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin: 25px 15px;
+        padding: 20px;
+    }
+}
+body {
+    background: #09090d;
+    color: #eae5df;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 50px 20px;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.card-grid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.25s ease;
+}
+
+.card-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* スマホでは2枚ずつ */
+@media (max-width: 600px) {
+    .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+}
+h1 { color: #17477b; }
+
+img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+}
+
+a { color: #c9a56a; }
+</style>
+</head>
+
+<body>
+
+<a href="file:///C:/Users/fsmin/Downloads/crysments-website/crysments-site/index.html">← トップページに戻る</a>
+
+<h1>水神</h1>
+
+<img src="../images/water.png" alt="水神">
+
+<h2>全てを流し尽くす超ドロー</h2>
+
+<p>
+圧倒的なドロー力で相手にリソース差をつける。<br>
+怒涛の召喚ラッシュで勝負を決めろ。
+</p>
+<div class="card-list">
+<h2>収録カード</h2>
+<p>水神フロードx1</p>
+<p>水神の嵐魂x2</p>
+<p>水神の雷魂x2</p>
+<p>水神精霊アクアスx3</p>
+<p>水神の眼光x2</p>
+<p>水神の魔導書x4</p>
+<p>マナポーションx4</p>
+<p>水神の濁流x3</p>
+<p>水神の意志x3</p>
+<p>水神の知恵x4</p>
+<p>水神の氾濫x4</p>
+<p>ブレイン・ノウレッジx4</p>
+<p>ヒストリック・リセットx2</p>
+<p>水神の加護x4</p>
+<p>水神伝承x2</p>
+<p>勤勉x1</p>
+<p>瞑想x1</p>
+<p>魔物の呼び声x1</p>
+<p>大爆発x1</p>
+<p>魔法陣のかけら-水-x10</p>
+<p>水神クリスタルx1</p>
+<p>水神結界x1</p>
+<p>知恵の書x1</p>
+</div>
+
+<div class="card-grid">
+    <img src="../images/cards/fires/fire01.png" alt="カード1">
+    <img src="../images/cards/fires/fire02.png" alt="カード2">
+    <img src="../images/cards/fires/fire03.png" alt="カード3">
+    <img src="../images/cards/fires/fire04.png" alt="カード4">
+
+    <img src="../images/cards/fires/fire05.png" alt="カード5">
+    <img src="../images/cards/fires/fire06.png" alt="カード6">
+    <img src="../images/cards/fires/fire07.png" alt="カード7">
+    <img src="../images/cards/fires/fire08.png" alt="カード8">
+</div>
+
+</body>
+</html>
