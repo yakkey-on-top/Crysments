@@ -363,57 +363,79 @@ button {
     margin: auto;
 }
 
-/* RULES */
 
-.rules-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-}
+<!-- RULES -->
 
-.rule-card {
-    position: relative;
-    padding: 28px;
-    min-height: 180px;
+<section class="section" id="rules">
 
-    border: 1px solid #c9a56a3a;
+    <div class="section-heading">
+        <div class="kicker">HOW TO PLAY</div>
+        <h2>RULES</h2>
+        <p>Crysmentsの基本ルール</p>
+    </div>
 
-    background:
-        linear-gradient(
-            145deg,
-            #20191c,
-            #0e0d12
-        );
+    <div class="rules-grid">
 
-    transition:
-        border-color .25s,
-        transform .25s;
-}
+        <button class="rule-card" onclick="openRule(0)">
+            <h3>01 / GAME OBJECTIVE</h3>
+            <h4>勝利条件</h4>
+            <p>ゲームの勝利条件について</p>
+            <span class="rule-more">CLICK TO READ MORE →</span>
+        </button>
 
-.rule-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-}
+        <button class="rule-card" onclick="openRule(1)">
+            <h3>02 / TURN FLOW</h3>
+            <h4>ターンの進行</h4>
+            <p>ターンの流れや行動について</p>
+            <span class="rule-more">CLICK TO READ MORE →</span>
+        </button>
 
-.rule-card h3 {
-    color: var(--gold);
-    font: 12px Cinzel, serif;
-    letter-spacing: .18em;
-    margin: 0 0 18px;
-}
+        <button class="rule-card" onclick="openRule(2)">
+            <h3>03 / MP SYSTEM</h3>
+            <h4>MPシステム</h4>
+            <p>MPの仕組みや使用方法について</p>
+            <span class="rule-more">CLICK TO READ MORE →</span>
+        </button>
 
-.rule-card h4 {
-    font-size: 19px;
-    letter-spacing: .1em;
-    margin: 0 0 12px;
-}
+        <button class="rule-card" onclick="openRule(3)">
+            <h3>04 / CARD TYPES</h3>
+            <h4>カードの種類</h4>
+            <p>各カードの種類と役割について</p>
+            <span class="rule-more">CLICK TO READ MORE →</span>
+        </button>
 
-.rule-card p {
-    color: #c6bfc2;
-    font-size: 13px;
-    line-height: 2;
-    margin: 0;
-}
+    </div>
+
+</section>
+
+<!-- RULE MODAL -->
+
+<div class="rule-modal" id="ruleModal"
+     onclick="closeRuleOutside(event)"
+     aria-hidden="true">
+
+    <div class="rule-modal-content"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modalTitle">
+
+        <button class="rule-close"
+                onclick="closeRule()"
+                aria-label="閉じる">
+            ×
+        </button>
+
+        <div class="kicker" id="modalKicker"></div>
+        <h2 id="modalTitle"></h2>
+
+        <div class="rule-modal-divider"></div>
+
+        <div class="rule-modal-text" id="modalText"></div>
+
+    </div>
+
+</div>
+
 
 /* DECKS */
 
