@@ -1,20 +1,489 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09090d">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#09090d">
+
 <title>Crysments | Official Website</title>
 <meta name="description" content="オリジナル対戦型カードゲーム Crysments 公式サイト。結晶を巡る戦略の世界へ。">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
-.hero-logo{display:block;width:min(90%,900px);height:auto;margin:13px auto 10px;object-fit:contain}.deck{cursor:pointer;text-decoration:none;color:inherit}.deck-image {
+
+:root {
+    --bg: #09090d;
+    --red: #d62238;
+    --gold: #c9a56a;
+    --ink: #eae5df;
+    --muted: #a29ba0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+/* HEADER */
+
+.site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 26px max(5vw, 22px);
+    border-bottom: 1px solid #ffffff18;
+}
+
+.brand img {
+    display: block;
+    width: 180px;
+    height: auto;
+}
+
+.nav {
+    display: flex;
+    gap: 25px;
+
+    font: 600 12px Cinzel, serif;
+    letter-spacing: .14em;
+}
+
+.nav a {
+    transition: color .2s;
+}
+
+.nav a:hover,
+.footer a:hover {
+    color: var(--gold);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 760px;
+    height: 100svh;
+    max-height: 1100px;
+
+    display: grid;
+    place-items: center;
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 48%,
+            #3b0d1b 0%,
+            #190b13 29%,
+            #09090d 69%
+        );
+}
+
+.hero:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        linear-gradient(transparent 65%, var(--bg)),
+        repeating-linear-gradient(
+            110deg,
+            transparent 0 130px,
+            #ffffff04 131px 132px
+        );
+}
+
+.halo {
+    position: absolute;
+    width: min(65vw, 650px);
+    aspect-ratio: 1;
+
+    border: 1px solid #c9a56a30;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 100px #b50e2b15,
+        inset 0 0 90px #b50e2b16;
+
+    transform: rotate(-20deg);
+}
+
+.halo:before,
+.halo:after {
+    content: "";
+    position: absolute;
+    inset: 8%;
+
+    border: 1px dashed #c9a56a42;
+    border-radius: 50%;
+}
+
+.halo:after {
+    inset: 19%;
+    border-style: solid;
+    transform: rotate(45deg);
+    border-radius: 4px;
+}
+
+.crystal {
+    position: absolute;
+    top: 24%;
+    left: 50%;
+
+    width: 160px;
+    height: 250px;
+
+    transform: translateX(-50%) rotate(12deg);
+
+    filter: drop-shadow(0 0 40px #e11238a0);
+
+    clip-path: polygon(
+        50% 0,
+        91% 28%,
+        76% 78%,
+        50% 100%,
+        17% 76%,
+        8% 29%
+    );
+
+    background:
+        linear-gradient(
+            112deg,
+            #ff6c80 0%,
+            #bc102f 24%,
+            #500715 49%,
+            #f1274c 51%,
+            #650b20 75%,
+            #ff7d90 100%
+        );
+
+    opacity: .86;
+}
+
+.crystal:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    clip-path: polygon(
+        50% 0,
+        50% 100%,
+        8% 29%
+    );
+
+    background: #ff9eae35;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+
+    width: 100%;
+    padding: clamp(120px, 19vh, 190px) 20px 90px;
+}
+
+.eyebrow {
+    color: var(--gold);
+    font: 600 12px Cinzel, serif;
+    letter-spacing: .4em;
+}
+
+.hero-logo {
+    display: block;
+    width: min(90%, 900px);
+    height: auto;
+
+    margin: 13px auto 10px;
+    object-fit: contain;
+}
+
+.hero h1 {
+    font: 700 clamp(48px, 9vw, 112px) Cinzel, serif;
+    letter-spacing: .09em;
+    margin: 13px 0 10px;
+    text-shadow: 0 5px 30px #000;
+}
+
+.hero h1:first-letter {
+    color: #f1495d;
+}
+
+.tagline {
+    font-size: clamp(15px, 2vw, 21px);
+    letter-spacing: .28em;
+    margin: 12px 0 35px;
+}
+
+.lead {
+    font-size: 13px;
+    color: #bfb5b9;
+    line-height: 2.2;
+    letter-spacing: .09em;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 13px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 170px;
+    padding: 14px 24px;
+
+    border: 1px solid var(--gold);
+
+    font-size: 12px;
+    letter-spacing: .12em;
+
+    transition: .2s;
+}
+
+.btn.primary {
+    background: var(--red);
+    border-color: var(--red);
+    font-weight: 700;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: #09090d;
+}
+
+.scroll {
+    position: absolute;
+    bottom: 30px;
+
+    color: #b6a9a7;
+    font: 11px Cinzel, serif;
+    letter-spacing: .25em;
+}
+
+.scroll:after {
+    content: "";
+    display: block;
+
+    width: 1px;
+    height: 35px;
+
+    background: var(--gold);
+    margin: 13px auto 0;
+}
+
+/* COMMON SECTION */
+
+.section {
+    padding: 100px max(6vw, 24px);
+    max-width: 1320px;
+    margin: auto;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 52px;
+}
+
+.kicker {
+    color: var(--red);
+    font: 600 12px Cinzel, serif;
+    letter-spacing: .32em;
+}
+
+.section h2 {
+    font: 600 clamp(30px, 4vw, 46px) Cinzel, serif;
+    letter-spacing: .12em;
+    margin: 12px 0;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: .08em;
+}
+
+.intro {
+    max-width: 730px;
+    text-align: center;
+    margin: auto;
+
+    color: #c8c0c0;
+    line-height: 2.6;
+    font-size: 15px;
+}
+
+.divider {
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ad8d5d77,
+            transparent
+        );
+
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* RULES */
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.rule-card {
+    position: relative;
+    padding: 28px;
+    min-height: 180px;
+
+    border: 1px solid #c9a56a3a;
+
+    background:
+        linear-gradient(
+            145deg,
+            #20191c,
+            #0e0d12
+        );
+
+    transition:
+        border-color .25s,
+        transform .25s;
+}
+
+.rule-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+}
+
+.rule-card h3 {
+    color: var(--gold);
+    font: 12px Cinzel, serif;
+    letter-spacing: .18em;
+    margin: 0 0 18px;
+}
+
+.rule-card h4 {
+    font-size: 19px;
+    letter-spacing: .1em;
+    margin: 0 0 12px;
+}
+
+.rule-card p {
+    color: #c6bfc2;
+    font-size: 13px;
+    line-height: 2;
+    margin: 0;
+}
+
+/* DECKS */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.deck {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+
+    min-width: 0;
+    min-height: 350px;
+
+    position: relative;
+    overflow: hidden;
+
+    border: 1px solid #c9a56a3a;
+
+    background:
+        radial-gradient(
+            circle at 50% 28%,
+            var(--glow),
+            transparent 60%
+        ),
+        linear-gradient(
+            160deg,
+            #20191c,
+            #0e0d12
+        );
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    padding: 25px;
+
+    transition:
+        transform .25s,
+        border-color .25s;
+}
+
+.deck:hover {
+    transform: translateY(-7px);
+    border-color: var(--gold);
+}
+
+.deck:after {
+    content: "";
+    position: absolute;
+    inset: 15px;
+
+    border: 1px solid #c9a56a20;
+    pointer-events: none;
+}
+
+.deck-image {
     display: block;
     width: 100%;
     height: 190px;
+
     object-fit: contain;
     object-position: center;
+
     margin-bottom: 15px;
-    transition: transform 0.3s ease;
+
+    transition: transform .3s ease;
     filter: drop-shadow(0 0 12px var(--gem));
 }
 
@@ -22,53 +491,512 @@
     transform: scale(1.05);
 }
 
-.deck-image:hover {
-    transform: scale(1.05);
+.deck small {
+    color: var(--gold);
+    font: 12px Cinzel, serif;
+    letter-spacing: .2em;
 }
 
-:root{--bg:#09090d;--red:#d62238;--gold:#c9a56a;--ink:#eae5df;--muted:#a29ba0}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit}.site-header{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:26px max(5vw,22px);border-bottom:1px solid #ffffff18}.brand{font:700 23px Cinzel,serif;letter-spacing:.17em}.brand span{color:var(--red)}.nav{display:flex;gap:32px;font:600 12px Cinzel,serif;letter-spacing:.14em}.nav a:hover,.footer a:hover{color:var(--gold)}.hero{min-height:760px;height:100svh;max-height:1100px;display:grid;place-items:center;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,#3b0d1b 0%,#190b13 29%,#09090d 69%)}.hero:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(transparent 65%,var(--bg)),repeating-linear-gradient(110deg,transparent 0 130px,#ffffff04 131px 132px)}.halo{position:absolute;width:min(65vw,650px);aspect-ratio:1;border:1px solid #c9a56a30;border-radius:50%;box-shadow:0 0 100px #b50e2b15,inset 0 0 90px #b50e2b16;transform:rotate(-20deg)}.halo:before,.halo:after{content:"";position:absolute;inset:8%;border:1px dashed #c9a56a42;border-radius:50%}.halo:after{inset:19%;border-style:solid;transform:rotate(45deg);border-radius:4px}.crystal{position:absolute;top:24%;left:50%;width:160px;height:250px;transform:translateX(-50%) rotate(12deg);filter:drop-shadow(0 0 40px #e11238a0);clip-path:polygon(50% 0,91% 28%,76% 78%,50% 100%,17% 76%,8% 29%);background:linear-gradient(112deg,#ff6c80 0%,#bc102f 24%,#500715 49%,#f1274c 51%,#650b20 75%,#ff7d90 100%);opacity:.86}.crystal:after{content:"";position:absolute;inset:0;clip-path:polygon(50% 0,50% 100%,8% 29%);background:#ff9eae35}.hero-content{text-align:center;z-index:1;padding:240px 20px 0}.eyebrow{color:var(--gold);font:600 12px Cinzel,serif;letter-spacing:.4em}.hero h1{font:700 clamp(48px,9vw,112px) Cinzel,serif;letter-spacing:.09em;margin:13px 0 10px;text-shadow:0 5px 30px #000}.hero h1:first-letter{color:#f1495d}.tagline{font-size:clamp(15px,2vw,21px);letter-spacing:.28em;margin:12px 0 35px}.lead{font-size:13px;color:#bfb5b9;line-height:2.2;letter-spacing:.09em}.actions{display:flex;justify-content:center;gap:13px;margin-top:32px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;min-width:170px;padding:14px 24px;border:1px solid var(--gold);font-size:12px;letter-spacing:.12em;transition:.2s}.btn.primary{background:var(--red);border-color:var(--red);font-weight:700}.btn:hover{background:var(--gold);color:#09090d}.scroll{position:absolute;bottom:30px;color:#b6a9a7;font:11px Cinzel,serif;letter-spacing:.25em}.scroll:after{content:"";display:block;width:1px;height:35px;background:var(--gold);margin:13px auto 0}.section{padding:100px max(6vw,24px);max-width:1320px;margin:auto}.section-heading{text-align:center;margin-bottom:52px}.kicker{color:var(--red);font:600 12px Cinzel,serif;letter-spacing:.32em}.section h2{font:600 clamp(30px,4vw,46px) Cinzel,serif;letter-spacing:.12em;margin:12px 0}.section-heading p{color:var(--muted);font-size:13px;letter-spacing:.08em}.intro{max-width:730px;text-align:center;margin:auto;color:#c8c0c0;line-height:2.6;font-size:15px}.divider{height:1px;background:linear-gradient(90deg,transparent,#ad8d5d77,transparent);max-width:1200px;margin:auto}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.deck{min-width:0;min-height:350px;position:relative;overflow:hidden;border:1px solid #c9a56a3a;background:radial-gradient(circle at 50% 28%,var(--glow),transparent 60%),linear-gradient(160deg,#20191c,#0e0d12);display:flex;flex-direction:column;justify-content:end;padding:25px;transition:transform .25s,border-color .25s}.deck:hover{transform:translateY(-7px);border-color:var(--gold)}.deck:after{content:"";position:absolute;inset:15px;border:1px solid #c9a56a20;pointer-events:none}.deck small{color:var(--gold);font:12px Cinzel,serif;letter-spacing:.2em}.deck h3{font-size:24px;letter-spacing:.15em;margin:9px 0}.deck p{color:#c6bfc2;font-size:12px;margin:0}.news{border-top:1px solid #ffffff25}.news-item{padding:24px 0;border-bottom:1px solid #ffffff25;display:flex;gap:32px;align-items:center}.news time{color:var(--gold);font:12px Cinzel,serif}.news-item p{margin:0;font-size:14px}.notice{color:var(--muted);font-size:12px;margin-top:20px}.cta{text-align:center;padding:85px 20px;background:radial-gradient(ellipse at center,#360e1b,#110b10 65%,#09090d);border-top:1px solid #7e23365c}.cta h2{font:600 clamp(30px,5vw,50px) Cinzel,serif;letter-spacing:.12em;margin:10px 0}.cta p{color:#c5b8bc;font-size:13px;margin-bottom:28px}.footer{padding:35px max(5vw,22px);display:flex;justify-content:space-between;gap:20px;align-items:center;color:#968b91;font-size:11px}.footer a{margin-left:18px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.nav{gap:14px}.nav a{font-size:10px}.hero{min-height:700px}.crystal{top:20%;width:115px;height:180px}.hero-content{padding-top:170px}.halo{width:90vw}.section{padding-top:70px;padding-bottom:70px}}@media(max-width:490px){.brand{font-size:17px}.nav a:nth-child(2){display:none}.nav{gap:12px}.hero h1{font-size:45px;letter-spacing:.035em}.tagline{letter-spacing:.1em}.grid{gap:10px}.deck{min-height:270px;padding:17px}.deck-image{height:115px}.deck h3{font-size:20px}.news-item{align-items:flex-start;gap:15px;flex-direction:column}.footer{flex-direction:column}.footer a{margin:0 9px}}
+.deck h3 {
+    font-size: 24px;
+    letter-spacing: .15em;
+    margin: 9px 0;
+}
+
+.deck p {
+    color: #c6bfc2;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* NEWS */
+
+.news {
+    border-top: 1px solid #ffffff25;
+}
+
+.news-item {
+    padding: 24px 0;
+    border-bottom: 1px solid #ffffff25;
+
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.news time {
+    color: var(--gold);
+    font: 12px Cinzel, serif;
+}
+
+.news-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.notice {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* CONTACT */
+
+.cta {
+    text-align: center;
+    padding: 85px 20px;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #360e1b,
+            #110b10 65%,
+            #09090d
+        );
+
+    border-top: 1px solid #7e23365c;
+}
+
+.cta h2 {
+    font: 600 clamp(30px, 5vw, 50px) Cinzel, serif;
+    letter-spacing: .12em;
+    margin: 10px 0;
+}
+
+.cta p {
+    color: #c5b8bc;
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+
+/* FOOTER */
+
+.footer {
+    padding: 35px max(5vw, 22px);
+
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+
+    color: #968b91;
+    font-size: 11px;
+}
+
+.footer a {
+    margin-left: 18px;
+}
+
+/* TABLET */
+
+@media(max-width: 800px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav {
+        gap: 14px;
+    }
+
+    .nav a {
+        font-size: 10px;
+    }
+
+    .hero {
+        min-height: 700px;
+    }
+
+    .crystal {
+        top: 20%;
+        width: 115px;
+        height: 180px;
+    }
+
+    .hero-content {
+        padding: 150px 20px 100px;
+    }
+
+    .halo {
+        width: 90vw;
+    }
+
+    .section {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+}
+
+/* SMARTPHONE */
+
+@media(max-width: 490px) {
+    .site-header {
+        padding: 20px 15px;
+    }
+
+    .brand img {
+        width: 115px;
+    }
+
+    .nav {
+        gap: 10px;
+    }
+
+    .nav a {
+        font-size: 9px;
+        letter-spacing: .06em;
+    }
+
+    .hero {
+        min-height: 700px;
+    }
+
+    .hero-content {
+        padding: 145px 15px 100px;
+    }
+
+    .hero-logo {
+        width: 95%;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+        letter-spacing: .035em;
+    }
+
+    .tagline {
+        letter-spacing: .1em;
+    }
+
+    .lead {
+        font-size: 12px;
+    }
+
+    .actions {
+        gap: 10px;
+    }
+
+    .btn {
+        min-width: 145px;
+        padding: 13px 17px;
+    }
+
+    .grid {
+        gap: 10px;
+    }
+
+    .deck {
+        min-height: 270px;
+        padding: 17px;
+    }
+
+    .deck-image {
+        height: 115px;
+    }
+
+    .deck h3 {
+        font-size: 20px;
+    }
+
+    .rules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rule-card {
+        padding: 23px;
+    }
+
+    .news-item {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .footer {
+        flex-direction: column;
+    }
+
+    .footer a {
+        margin: 0 9px;
+    }
+}
 </style>
 </head>
+
 <body>
-<header class="site-header"><a href="#top" class="brand"><img src="images/logo.png" alt="Crysments" width="180"></a><nav class="nav" aria-label="メインナビゲーション"><a href="#about">ABOUT</a><a href="#decks">DECKS</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav></header>
-<main id="top"><section class="hero"><div class="halo" aria-hidden="true"></div><div class="crystal" aria-hidden="true"></div><div class="hero-content"><div class="eyebrow">ORIGINAL CARD GAME</div><img src="images/logo.png" alt="Crysments" class="hero-logo"><p class="tagline">結晶を巡る、戦略の世界へ。</p><p class="lead">その一手が、運命を変える。<br>独自の戦術が交錯する、オリジナル対戦型カードゲーム。</p><div class="actions"><a class="btn primary" href="#about">世界を知る</a><a class="btn" href="#decks">デッキを見る</a></div></section>
-<section class="section" id="about"><div class="section-heading"><div class="kicker">THE WORLD OF CRYSMENTS</div><h2>ABOUT</h2><p>Crysmentsとは</p></div><p class="intro">Crysmentsは、MPを駆使し、魔物や魔法、結界を使って戦うオリジナルカードゲーム。<br>デッキごとに異なる戦術とプレイスタイルが、対戦のたびに新しい駆け引きを生み出します。<br>あなただけの勝利をその手に</p></section><div class="divider"></div>
-<section class="section" id="decks"><div class="section-heading"><div class="kicker">CHOOSE YOUR STRATEGY</div><h2>FOUR DECKS</h2><p>異なる戦術を持つ、四つのデッキ</p></div><div class="grid">
 
-  <a href="decks/fire.html" class="deck"
-     style="--glow:#a82128;--gem:#f24739">
-    <img src="images/fire.png" class="deck-image" alt="炎神">
-    <small>01 / FIRE</small>
-    <h3>炎神</h3>
-    <p>誰もついていけない超スピード</p>
-  </a>
+<!-- HEADER -->
 
-  <a href="decks/工事中.html" class="deck"
-     style="--glow:#17477b;--gem:#54b7ff">
-    <img src="images/water.png" class="deck-image" alt="水神">
-    <small>02 / WATER</small>
-    <h3>水神</h3>
-    <p>全てを流し尽くす超ドロー</p>
-  </a>
+<header class="site-header">
+    <a href="#top" class="brand">
+        <img src="images/logo.png" alt="Crysments">
+    </a>
 
-  <a href="decks/工事中.html" class="deck"
-     style="--glow:#24553d;--gem:#62d19a">
-    <img src="images/nature.png" class="deck-image" alt="樹神">
-    <small>03 / NATURE</small>
-    <h3>樹神</h3>
-    <p>MPを巡る攻防</p>
-  </a>
+    <nav class="nav" aria-label="メインナビゲーション">
+        <a href="#about">ABOUT</a>
+        <a href="#rules">RULES</a>
+        <a href="#decks">DECKS</a>
+        <a href="#news">NEWS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+</header>
 
-  <a href="decks/工事中.html" class="deck"
-     style="--glow:#65512b;--gem:#e4b85c">
-    <img src="images/earth.png" class="deck-image" alt="地神">
-    <small>04 / EARTH</small>
-    <h3>地神</h3>
-    <p>行動制限・ロック</p>
-  </a>
+<main id="top">
 
-</div></section><div class="divider"></div>
-<section class="section news" id="news"><div class="section-heading"><div class="kicker">LATEST INFORMATION</div><h2>NEWS</h2><p>最新情報</p></div><div class="news-item"><time>COMING SOON</time><p>Crysmentsの最新情報は、今後こちらでお知らせします。</p></div><p class="notice">※ このサイトは公開準備用の初期版です。販売・クラウドファンディングの開始は未定です。</p></section>
-<section class="cta" id="contact"><div class="kicker">THE STORY BEGINS</div><h2>ENTER THE WORLD</h2><p>Crysmentsのこれからを、お楽しみに。</p><a class="btn" href="mailto:contact@example.com?subject=Crysments%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B" onclick="return false" title="公開前に連絡先を設定してください">CONTACT — 準備中</a></section></main>
-<footer class="footer"><span>© <span id="year"></span> Crysments. All rights reserved.</span><div><a href="#top">BACK TO TOP ↑</a></div></footer><script>document.getElementById('year').textContent=new Date().getFullYear()</script>
-</body></html>
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="halo" aria-hidden="true"></div>
+    <div class="crystal" aria-hidden="true"></div>
+
+    <div class="hero-content">
+
+        <div class="eyebrow">ORIGINAL CARD GAME</div>
+
+        <img
+            src="images/logo.png"
+            alt="Crysments"
+            class="hero-logo"
+        >
+
+        <p class="tagline">
+            結晶を巡る、戦略の世界へ。
+        </p>
+
+        <p class="lead">
+            その一手が、運命を変える。<br>
+            独自の戦術が交錯する、オリジナル対戦型カードゲーム。
+        </p>
+
+        <div class="actions">
+            <a class="btn primary" href="#about">世界を知る</a>
+            <a class="btn" href="#decks">デッキを見る</a>
+        </div>
+
+    </div>
+
+    <div class="scroll">SCROLL</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="section" id="about">
+
+    <div class="section-heading">
+        <div class="kicker">THE WORLD OF CRYSMENTS</div>
+        <h2>ABOUT</h2>
+        <p>Crysmentsとは</p>
+    </div>
+
+    <p class="intro">
+        Crysmentsは、MPを駆使し、魔物や魔法、結界を使って戦うオリジナルカードゲーム。<br>
+        デッキごとに異なる戦術とプレイスタイルが、対戦のたびに新しい駆け引きを生み出します。<br>
+        あなただけの勝利をその手に
+    </p>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- RULES -->
+
+<section class="section" id="rules">
+
+    <div class="section-heading">
+        <div class="kicker">HOW TO PLAY</div>
+        <h2>RULES</h2>
+        <p>Crysmentsの基本ルール</p>
+    </div>
+
+    <div class="rules-grid">
+
+        <div class="rule-card">
+            <h3>01 / GAME OBJECTIVE</h3>
+            <h4>勝利条件</h4>
+            <p>
+                ここに勝利条件を記載します。
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <h3>02 / TURN FLOW</h3>
+            <h4>ターンの進行</h4>
+            <p>
+                ここにターンの進行や行動について記載します。
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <h3>03 / MP SYSTEM</h3>
+            <h4>MPシステム</h4>
+            <p>
+                ここにMPの仕組みや使用方法について記載します。
+            </p>
+        </div>
+
+        <div class="rule-card">
+            <h3>04 / CARD TYPES</h3>
+            <h4>カードの種類</h4>
+            <p>
+                ここにカードの種類やそれぞれの役割を記載します。
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- DECKS -->
+
+<section class="section" id="decks">
+
+    <div class="section-heading">
+        <div class="kicker">CHOOSE YOUR STRATEGY</div>
+        <h2>FOUR DECKS</h2>
+        <p>異なる戦術を持つ、四つのデッキ</p>
+    </div>
+
+    <div class="grid">
+
+        <a href="decks/fire.html"
+           class="deck"
+           style="--glow:#a82128;--gem:#f24739">
+
+            <img
+                src="images/fire.png"
+                class="deck-image"
+                alt="炎神"
+            >
+
+            <small>01 / FIRE</small>
+            <h3>炎神</h3>
+            <p>誰もついていけない超スピード</p>
+
+        </a>
+
+        <a href="decks/工事中.html"
+           class="deck"
+           style="--glow:#17477b;--gem:#54b7ff">
+
+            <img
+                src="images/water.png"
+                class="deck-image"
+                alt="水神"
+            >
+
+            <small>02 / WATER</small>
+            <h3>水神</h3>
+            <p>全てを流し尽くす超ドロー</p>
+
+        </a>
+
+        <a href="decks/工事中.html"
+           class="deck"
+           style="--glow:#24553d;--gem:#62d19a">
+
+            <img
+                src="images/nature.png"
+                class="deck-image"
+                alt="樹神"
+            >
+
+            <small>03 / NATURE</small>
+            <h3>樹神</h3>
+            <p>MPを巡る攻防</p>
+
+        </a>
+
+        <a href="decks/工事中.html"
+           class="deck"
+           style="--glow:#65512b;--gem:#e4b85c">
+
+            <img
+                src="images/earth.png"
+                class="deck-image"
+                alt="地神"
+            >
+
+            <small>04 / EARTH</small>
+            <h3>地神</h3>
+            <p>行動制限・ロック</p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- NEWS -->
+
+<section class="section news" id="news">
+
+    <div class="section-heading">
+        <div class="kicker">LATEST INFORMATION</div>
+        <h2>NEWS</h2>
+        <p>最新情報</p>
+    </div>
+
+    <div class="news-item">
+        <time>COMING SOON</time>
+        <p>
+            Crysmentsの最新情報は、今後こちらでお知らせします。
+        </p>
+    </div>
+
+    <p class="notice">
+        ※ このサイトは公開準備用の初期版です。販売・クラウドファンディングの開始は未定です。
+    </p>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="cta" id="contact">
+
+    <div class="kicker">THE STORY BEGINS</div>
+
+    <h2>ENTER THE WORLD</h2>
+
+    <p>
+        Crysmentsのこれからを、お楽しみに。
+    </p>
+
+    <a
+        class="btn"
+        href="mailto:contact@example.com?subject=Crysments%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B"
+        onclick="return false"
+        title="公開前に連絡先を設定してください"
+    >
+        CONTACT — 準備中
+    </a>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <span>
+        © <span id="year"></span> Crysments. All rights reserved.
+    </span>
+
+    <div>
+        <a href="#top">BACK TO TOP ↑</a>
+    </div>
+
+</footer>
+
+<script>
+document.getElementById('year').textContent =
+    new Date().getFullYear();
+</script>
+
+</body>
+</html>
